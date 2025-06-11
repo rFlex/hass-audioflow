@@ -69,13 +69,11 @@ class ZoneStateSwitch(ZoneEntity, SwitchEntity):
 
     async def async_turn_on(self, **kwargs: Any) -> None:
         await self.coordinator.client.set_zone_state(self.zone_id, True)
-        self.af_zone["state"] = "on"
-        await self.coordinator.async_request_refresh()
+        await coordinator.async_refresh()
 
     async def async_turn_off(self, **kwargs: Any) -> None:
         await self.coordinator.client.set_zone_state(self.zone_id, False)
-        self.af_zone["state"] = "off"
-        await self.coordinator.async_request_refresh()
+        await coordinator.async_refresh()
 
     @property
     def name(self) -> str:
